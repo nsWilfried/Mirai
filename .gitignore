@@ -105,8 +105,6 @@ docs/_build/
 .env.*
 
 # Data files
-data/
-datasets/
 *.csv
 *.json
 *.xls
@@ -117,7 +115,6 @@ logs/
 *.log
 
 # Models and model checkpoints
-models/
 checkpoints/
 *.h5
 *.ckpt
