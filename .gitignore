@@ -1,0 +1,140 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+*.cover
+.hypothesis/
+.pytest_cache/
+.coverage.*
+
+# PyCharm
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Pyre type checker
+.pyre/
+
+# Mypy type checker
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Coverage
+.coverage
+.coverage.*
+
+# Caches
+*.log
+*.tmp
+*.cache
+*.pkl
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Cython
+*.c
+*.cpp
+
+# Translations
+*.mo
+*.pot
+
+# Env files
+.env
+.env.*
+
+# Data files
+data/
+datasets/
+*.csv
+*.json
+*.xls
+*.xlsx
+
+# Logs
+logs/
+*.log
+
+# Models and model checkpoints
+models/
+checkpoints/
+*.h5
+*.ckpt
+*.pb
+*.pth
+*.joblib
+
+# Ignore Python library files
+*.whl
+*.pyd
+*.dll
+*.a
+*.o
+*.pyc
+
+# Ignore precompiled files
+*.class
+
+# VS Code workspace and history
+.history

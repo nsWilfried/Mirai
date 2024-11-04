@@ -1,0 +1,38 @@
+# Training Configuration
+database_path: "./data/sports/nba/dataset.sqlite"
+save_dir: "models/saved"
+data_start_date: "2022-01-01"
+data_end_date: "2023-12-31"
+
+# Data Configuration
+train_size: 0.7
+val_size: 0.15
+target_column: "Home-Team-Win"
+batch_size: 32
+num_workers: 4
+
+# Model Parameters
+lstm_params:
+  hidden_size: 128
+  num_layers: 2
+  dropout: 0.3
+
+attention_params:
+  num_heads: 8
+  hidden_size: 256
+  dropout: 0.2
+
+neural_net_params:
+  hidden_sizes: [256, 128, 64]
+  dropout: 0.3
+
+monte_carlo_params:
+  num_samples: 100
+  dropout: 0.3
+
+# Training Parameters
+learning_rate: 0.001
+weight_decay: 0.0001
+epochs: 100
+early_stopping_patience: 10
+grad_clip: 1.0

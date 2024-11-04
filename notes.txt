@@ -1,0 +1,199 @@
+```text
+1. HIGH-LEVEL DIFFERENCE:
+
+SequenceBuilder:
+- Focuses on creating TIME-ORDERED sequences of games
+- Used specifically for LSTM and time-series models
+- Maintains temporal relationships between games
+
+FeatureEngineer:
+- Creates AGGREGATED statistics and features
+- Used for all model types
+- Focuses on overall patterns and metrics
+
+2. SPECIFIC USES:
+
+SequenceBuilder
+-------------
+Purpose: Create ordered game sequences for time-series models (LSTM, Attention)
+Example Input: Last 10 games of a team
+Output: Ordered sequences like:
+[Game1] -> [Game2] -> [Game3] -> ... -> [Game10]
+
+Used by:
+- LSTM models
+- Attention models
+- Any model that needs to understand game-by-game progression
+
+Example usage:
+```python
+sequence_builder = SequenceBuilder(config)
+# Get last 10 games in order for LSTM
+game_sequences = sequence_builder.build_game_sequences(
+    home_games=home_team_last_10_games,
+    away_games=away_team_last_10_games,
+    game_date=current_game_date
+)
+
+# Output structure:
+{
+    'performance': tensor of shape [10, n_features],  # 10 games in sequence
+    'volume': tensor of shape [10, n_features],
+    'rankings': tensor of shape [10, n_features],
+    # Each tensor maintains game order
+}
+```
+
+FeatureEngineer
+--------------
+Purpose: Create aggregated statistics and features for any model type
+Example Input: All recent games of a team
+Output: Aggregated features like averages, trends, rankings
+
+Used by:
+- Neural Networks
+- Statistical models
+- Feature-based models
+
+Example usage:
+```python
+feature_engineer = FeatureEngineer(config)
+# Get aggregated features
+features = feature_engineer.create_team_features(
+    recent_games=team_all_recent_games,
+    rest_days=3
+)
+
+# Output structure:
+{
+    'performance': array of aggregated stats (averages, etc.),
+    'form': array of form metrics (trends, streaks),
+    'rest': array of rest impact features,
+    'rankings': array of ranking features
+    # No temporal ordering maintained
+}
+```
+
+3. WHEN TO USE EACH:
+
+Use SequenceBuilder when:
+- Using LSTM or Attention models
+- Need to maintain game order
+- Want to capture sequential patterns
+- Analyzing how teams evolve over a sequence of games
+
+Use FeatureEngineer when:
+- Using traditional neural networks
+- Need aggregated statistics
+- Want overall patterns and metrics
+- Analyzing team performance as a whole
+
+4. TYPICAL WORKFLOW:
+
+For LSTM/Attention Models:
+```python
+# Initialize both
+sequence_builder = SequenceBuilder(config)
+feature_engineer = FeatureEngineer(config)
+
+# Get sequences for LSTM
+sequences = sequence_builder.build_game_sequences(
+    home_games,
+    away_games,
+    game_date
+)
+
+# Get additional features
+additional_features = feature_engineer.create_team_features(
+    recent_games,
+    rest_days
+)
+
+# Combine for full model input
+model_input = {
+    'sequences': sequences,          # For LSTM layers
+    'additional_features': additional_features  # For dense layers
+}
+
+# Use with LSTM model
+lstm_prediction = lstm_model(model_input)
+```
+
+For Traditional Neural Network:
+```python
+# Only need FeatureEngineer
+feature_engineer = FeatureEngineer(config)
+
+# Get aggregated features
+features = feature_engineer.create_team_features(
+    recent_games,
+    rest_days
+)
+
+# Use with neural network
+nn_prediction = neural_network(features)
+```
+
+5. KEY DIFFERENCES IN OUTPUT:
+
+SequenceBuilder Output (maintains order):
+```python
+{
+    'sequence': [
+        [Game1_stats],
+        [Game2_stats],
+        [Game3_stats],
+        ...
+    ]
+}
+```
+
+FeatureEngineer Output (aggregated):
+```python
+{
+    'performance': [avg_points, avg_rebounds, ...],
+    'form': [current_streak, point_trend, ...],
+    'rest': [rest_days_impact, ...],
+    'rankings': [current_rank_features, ...]
+}
+```
+
+6. COMBINE THEM FOR BEST RESULTS:
+
+For the most comprehensive analysis, you might want to use both:
+```python
+def prepare_game_features(home_games, away_games, game_date):
+    # Get sequences for LSTM
+    sequences = sequence_builder.build_game_sequences(
+        home_games,
+        away_games,
+        game_date
+    )
+
+    # Get aggregated features
+    home_features = feature_engineer.create_team_features(
+        home_games,
+        home_rest_days
+    )
+    away_features = feature_engineer.create_team_features(
+        away_games,
+        away_rest_days
+    )
+
+    return {
+        'sequences': sequences,          # For LSTM processing
+        'home_features': home_features,  # For additional context
+        'away_features': away_features   # For additional context
+    }
+```
+
+This combined approach allows your models to understand both:
+- How teams have evolved over recent games (sequences)
+- Overall team performance and characteristics (features)
+```
+
+Would you like me to:
+1. Provide specific examples of how each is used in different models?
+2. Show how to combine them effectively?
+3. Explain how to choose which one to use?
+4. Demonstrate how they affect model performance?
